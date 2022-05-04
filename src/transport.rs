@@ -6,6 +6,9 @@ use url::Url;
 mod tcp;
 pub use tcp::TcpTransport;
 
+mod tor;
+pub use tor::TorTransport;
+
 mod tls;
 pub use tls::TlsTransport;
 
