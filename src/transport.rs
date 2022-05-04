@@ -15,12 +15,15 @@ pub trait AsyncRW: AsyncRead + AsyncWrite + Send + Unpin {}
 pub trait Transport {
     type Output;
 
-    async fn dial(self, url: Url) -> Result<Self::Output>;
+    async fn dial(self, url: Url) -> Result<Self::Output>
+    where
+        Self: Sized;
 
     async fn upgrade(
         self,
         stream: Self::Output,
         proto: &str,
-        //) -> Result<Pin<Box<dyn Transport<Output = dyn AsyncRW>>>>;
-    ) -> Result<Box<dyn Transport<Output = dyn AsyncRW>>>;
+    ) -> Result<Box<dyn Transport<Output = dyn AsyncRW>>>
+    where
+        Self: Sized;
 }
